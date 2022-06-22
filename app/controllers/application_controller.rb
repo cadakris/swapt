@@ -29,13 +29,24 @@ class ApplicationController < Sinatra::Base
     Item.find(params[:id]).destroy.to_json
   end
 
+  #THIS METHOD WILL SWITCH THE USER IDS
+  # patch "/item/swap/:id1/:id2" do
+  #   item1 = Item.find(params[:id1])
+  #   user1 = item1.user
+  #   item2 = Item.find(params[:id2])
+  #   user2 = item2.user
+  #   item1.update(user: user2).to_json
+  #   item2.update(user: user1).to_json
+  # end
+
+  #THIS WILL DELETE THE SECOND ITEM ONCE IT HAS BEEN SWAPPED
   patch "/item/swap/:id1/:id2" do
     item1 = Item.find(params[:id1])
     user1 = item1.user
     item2 = Item.find(params[:id2])
     user2 = item2.user
     item1.update(user: user2).to_json
-    item2.update(user: user1).to_json
+    item2.destroy.to_json
   end
 
 
