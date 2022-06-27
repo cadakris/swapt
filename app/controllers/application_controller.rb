@@ -39,7 +39,7 @@ class ApplicationController < Sinatra::Base
   #   item2.update(user: user1).to_json
   # end
 
-  #THIS WILL DELETE THE SECOND ITEM ONCE IT HAS BEEN SWAPPED
+  #THIS WILL DELETE THE SECOND ITEM ONCE THE ID HAS SWAPPED
   patch "/item/swap/:id1/:id2" do
     item1 = Item.find(params[:id1])
     user1 = item1.user
@@ -70,6 +70,17 @@ class ApplicationController < Sinatra::Base
       image: params[:image]
     )
     useredit.to_json
+  end
+
+  patch '/edituseritems/:id' do
+    editItem = Item.find(params[:id])
+    editItem.update(
+      item_name: params[:item_name],
+      description: params[:description],
+      original_pricing: params[:original_pricing],
+      condition: params[:condition]
+    )
+    editItem.to_json
   end
 end
 
